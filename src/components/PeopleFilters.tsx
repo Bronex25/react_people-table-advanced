@@ -6,14 +6,13 @@ import classNames from 'classnames';
 export const PeopleFilters = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const sex = searchParams.get('sex');
+  const activeCenturies = searchParams.getAll('centuries');
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value.trim().toLowerCase();
 
     setSearchParams(getSearchWith(searchParams, { query: query || null }));
   };
-
-  const activeCenturies = searchParams.getAll('centuries');
 
   const handleAddCentury = (century: string) => {
     const newCenturies = activeCenturies.includes(century)

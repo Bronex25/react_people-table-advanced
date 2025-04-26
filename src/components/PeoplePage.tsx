@@ -25,18 +25,18 @@ export const PeoplePage = () => {
         return arr;
       }
 
-      return arr.sort((a, b) => {
+      return [...arr].sort((a, b) => {
         const aVal = a[sortBy];
         const bVal = b[sortBy];
 
         if (typeof aVal === 'string' && typeof bVal === 'string') {
-          return sortOrder
+          return sortOrder === 'desc'
             ? bVal.localeCompare(aVal)
             : aVal.localeCompare(bVal);
         }
 
         if (typeof aVal === 'number' && typeof bVal === 'number') {
-          return sortOrder ? bVal - aVal : aVal - bVal;
+          return sortOrder === 'desc' ? bVal - aVal : aVal - bVal;
         }
 
         return 0;
@@ -50,7 +50,7 @@ export const PeoplePage = () => {
       return [];
     }
 
-    let result = [...people];
+    let result = doSorting(people);
 
     if (query) {
       result = result.filter(p => {
@@ -77,8 +77,6 @@ export const PeoplePage = () => {
         return centuries.includes(personCentury);
       });
     }
-
-    doSorting(result);
 
     return result;
   }, [people, sex, query, centuries, doSorting]);
